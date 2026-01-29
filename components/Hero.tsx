@@ -8,15 +8,21 @@ import Robot from './Robot';
 const Hero: React.FC = () => {
   const [scale, setScale] = useState(0.8);
   const [fov, setFov] = useState(30);
+  const [isMobile, setIsMobile] = useState(false);
+  const [position, setPosition] = useState<[number, number, number]>([0, -0.2, 0]);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setScale(0.55); // Smaller robot for mobile
-        setFov(45); // Wider FOV for mobile to fit everything
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (mobile) {
+        setScale(0.45); // Shrunk robot for mobile
+        setFov(45); 
+        setPosition([0, -0.6, 0]); // Lowered robot to leave room for text/scroll
       } else {
         setScale(0.8);
         setFov(30);
+        setPosition([0, -0.2, 0]);
       }
     };
 
@@ -40,15 +46,17 @@ const Hero: React.FC = () => {
             position: 'absolute', 
             top: 0, 
             left: 0,
-            touchAction: 'pan-y' // CRITICAL: Allows vertical scrolling on mobile
+            touchAction: 'pan-y' // Allow vertical scrolling on mobile
           }}
           camera={{ position: [0, 0, 5], fov: fov }}
         >
           <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={fov} />
+          
           <OrbitControls 
             enableZoom={false} 
             enablePan={false}
-            enableRotate={true}
+            // CRITICAL: Disable rotation on mobile to prevent blocking page scroll
+            enableRotate={!isMobile} 
             maxPolarAngle={Math.PI / 1.8} 
             minPolarAngle={Math.PI / 2.5} 
           />
@@ -59,7 +67,7 @@ const Hero: React.FC = () => {
 
           <Suspense fallback={null}>
             <Environment preset="city" />
-            <group scale={scale} position={[0, -0.2, 0]}>
+            <group scale={scale} position={position}>
               <Robot />
             </group>
           </Suspense>
@@ -73,7 +81,9 @@ const Hero: React.FC = () => {
           className="flex flex-col items-center space-y-4"
         >
           <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-cyan-400/40 to-transparent" />
-          <span className="text-[9px] uppercase font-bold tracking-[0.5em] text-white/20">Explore Interface</span>
+          <span className="text-[9px] uppercase font-bold tracking-[0.5em] text-white/20">
+            {isMobile ? 'Swipe to Explore' : 'Scroll Interface'}
+          </span>
         </motion.div>
       </div>
     </section>

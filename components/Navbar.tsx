@@ -29,9 +29,9 @@ const Navbar: React.FC = () => {
 
 export const MobileNavbar: React.FC = () => {
     return (
-        <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90%] glass rounded-full px-6 py-4 flex justify-between items-center overflow-x-auto space-x-6 no-scrollbar">
+        <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[92%] glass rounded-full px-4 py-4 flex justify-around items-center overflow-x-auto no-scrollbar shadow-2xl border-white/10">
             {NAV_ITEMS.slice(0, 4).map((item) => (
-                <a key={item.href} href={item.href} className="text-[10px] uppercase font-bold tracking-tighter text-white/70 whitespace-nowrap">
+                <a key={item.href} href={item.href} className="text-[9px] uppercase font-bold tracking-tighter text-white/70 whitespace-nowrap px-2">
                     {item.label}
                 </a>
             ))}
