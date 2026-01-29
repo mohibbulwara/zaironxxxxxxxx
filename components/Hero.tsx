@@ -15,11 +15,12 @@ const Hero: React.FC = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
       if (mobile) {
-        // Even smaller on mobile to ensure more "blank space" for scrolling
-        setScale(0.4); 
-        setFov(50); 
-        setPosition([0, -0.8, 0]); 
+        // Significantly larger and shifted higher up on mobile
+        setScale(0.7); 
+        setFov(45); 
+        setPosition([0, 0.3, 0]); 
       } else {
+        // Maintaining desktop exactly as it was
         setScale(0.8);
         setFov(30);
         setPosition([0, -0.2, 0]);
@@ -41,7 +42,7 @@ const Hero: React.FC = () => {
         <Canvas 
           dpr={[1, 2]}
           // Using touchAction 'pan-y' and removing OrbitControls on mobile 
-          // ensures the Canvas doesn't capture the scroll gesture.
+          // ensures the Canvas doesn't capture the scroll gesture, allowing users to scroll the page.
           style={{ 
             width: '100%', 
             height: '100%', 
@@ -54,7 +55,7 @@ const Hero: React.FC = () => {
         >
           <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={fov} />
           
-          {/* Only render OrbitControls on Desktop */}
+          {/* Only render OrbitControls on Desktop. On mobile, rotation is automatic (defined in Robot.tsx). */}
           {!isMobile && (
             <OrbitControls 
               enableZoom={false} 
