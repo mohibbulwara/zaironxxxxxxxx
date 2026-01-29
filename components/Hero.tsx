@@ -1,7 +1,6 @@
-
 import React, { Suspense, useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, Environment } from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera, Environment, Float } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import Robot from './Robot';
 
@@ -16,9 +15,10 @@ const Hero: React.FC = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
       if (mobile) {
-        setScale(0.45); // Shrunk robot for mobile
-        setFov(45); 
-        setPosition([0, -0.6, 0]); // Lowered robot to leave room for text/scroll
+        // Even smaller on mobile to ensure more "blank space" for scrolling
+        setScale(0.4); 
+        setFov(50); 
+        setPosition([0, -0.8, 0]); 
       } else {
         setScale(0.8);
         setFov(30);
@@ -40,26 +40,30 @@ const Hero: React.FC = () => {
       <div className="relative w-full h-full z-10 flex items-center justify-center">
         <Canvas 
           dpr={[1, 2]}
+          // Using touchAction 'pan-y' and removing OrbitControls on mobile 
+          // ensures the Canvas doesn't capture the scroll gesture.
           style={{ 
             width: '100%', 
             height: '100%', 
             position: 'absolute', 
             top: 0, 
             left: 0,
-            touchAction: 'pan-y' // Allow vertical scrolling on mobile
+            touchAction: 'pan-y'
           }}
           camera={{ position: [0, 0, 5], fov: fov }}
         >
           <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={fov} />
           
-          <OrbitControls 
-            enableZoom={false} 
-            enablePan={false}
-            // CRITICAL: Disable rotation on mobile to prevent blocking page scroll
-            enableRotate={!isMobile} 
-            maxPolarAngle={Math.PI / 1.8} 
-            minPolarAngle={Math.PI / 2.5} 
-          />
+          {/* Only render OrbitControls on Desktop */}
+          {!isMobile && (
+            <OrbitControls 
+              enableZoom={false} 
+              enablePan={false}
+              enableRotate={true}
+              maxPolarAngle={Math.PI / 1.8} 
+              minPolarAngle={Math.PI / 2.5} 
+            />
+          )}
           
           <ambientLight intensity={0.4} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
@@ -67,9 +71,11 @@ const Hero: React.FC = () => {
 
           <Suspense fallback={null}>
             <Environment preset="city" />
-            <group scale={scale} position={position}>
-              <Robot />
-            </group>
+            <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+              <group scale={scale} position={position}>
+                <Robot isMobile={isMobile} />
+              </group>
+            </Float>
           </Suspense>
         </Canvas>
       </div>
@@ -82,7 +88,7 @@ const Hero: React.FC = () => {
         >
           <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-cyan-400/40 to-transparent" />
           <span className="text-[9px] uppercase font-bold tracking-[0.5em] text-white/20">
-            {isMobile ? 'Swipe to Explore' : 'Scroll Interface'}
+            {isMobile ? 'Swipe Up to Explore' : 'Scroll Interface'}
           </span>
         </motion.div>
       </div>

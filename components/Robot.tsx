@@ -1,31 +1,48 @@
-
 import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Capsule, Float } from '@react-three/drei';
 import * as THREE from 'three';
 
-const Robot: React.FC = () => {
+interface RobotProps {
+  isMobile?: boolean;
+}
+
+const Robot: React.FC<RobotProps> = ({ isMobile }) => {
   const headRef = useRef<THREE.Group>(null);
   const leftEyeRef = useRef<THREE.Mesh>(null);
   const rightEyeRef = useRef<THREE.Mesh>(null);
   const bodyRef = useRef<THREE.Group>(null);
+  const rootRef = useRef<THREE.Group>(null);
   
   const [isBlinking, setIsBlinking] = useState(false);
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
     
+    // Smooth head movement
     if (headRef.current) {
-      headRef.current.rotation.y = THREE.MathUtils.lerp(
-        headRef.current.rotation.y,
-        state.mouse.x * 0.4,
-        0.1
-      );
-      headRef.current.rotation.x = THREE.MathUtils.lerp(
-        headRef.current.rotation.x,
-        -state.mouse.y * 0.2,
-        0.1
-      );
+      if (isMobile) {
+        // Auto-movement on mobile since there's no mouse move usually tracked the same way
+        headRef.current.rotation.y = Math.sin(t * 0.5) * 0.2;
+        headRef.current.rotation.x = Math.cos(t * 0.3) * 0.1;
+      } else {
+        // Mouse follow on desktop
+        headRef.current.rotation.y = THREE.MathUtils.lerp(
+          headRef.current.rotation.y,
+          state.mouse.x * 0.4,
+          0.1
+        );
+        headRef.current.rotation.x = THREE.MathUtils.lerp(
+          headRef.current.rotation.x,
+          -state.mouse.y * 0.2,
+          0.1
+        );
+      }
+    }
+
+    // Gentle autonomous rotation for the whole robot on mobile
+    if (rootRef.current && isMobile) {
+      rootRef.current.rotation.y = Math.sin(t * 0.2) * 0.3;
     }
 
     if (bodyRef.current) {
@@ -45,7 +62,7 @@ const Robot: React.FC = () => {
   });
 
   return (
-    <group position={[0, -0.5, 0]}>
+    <group ref={rootRef} position={[0, -0.5, 0]}>
       <group ref={bodyRef}>
         {/* Head */}
         <group ref={headRef} position={[0, 0.8, 0]}>
@@ -94,7 +111,7 @@ const Robot: React.FC = () => {
           </mesh>
         </group>
 
-        {/* Floating Little Hands - Closer for mobile framing */}
+        {/* Floating Little Hands */}
         <Float speed={5} rotationIntensity={1} floatIntensity={1}>
           <mesh position={[0.6, 0.2, 0.1]}>
             <sphereGeometry args={[0.09, 16, 16]} />
@@ -109,6 +126,7 @@ const Robot: React.FC = () => {
         </Float>
       </group>
 
+      {/* Floor Ring */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1, 0]}>
         <ringGeometry args={[0.4, 0.45, 64]} />
         <meshBasicMaterial color="#22D3EE" transparent opacity={0.2} />
