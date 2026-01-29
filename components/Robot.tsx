@@ -92,13 +92,15 @@ const Robot: React.FC = () => {
 
         {/* Torso/Chassis */}
         <group position={[0, 0, 0]}>
-          <mesh>
-            <sphereGeometry args={[0.4, 32, 32]} scale={[1, 1.2, 0.8]} />
+          {/* Fix: Moved scale from sphereGeometry to mesh */}
+          <mesh scale={[1, 1.2, 0.8]}>
+            <sphereGeometry args={[0.4, 32, 32]} />
             <meshStandardMaterial color="#ffffff" roughness={0.2} />
           </mesh>
           {/* Core Badge */}
-          <mesh position={[0, 0, 0.32]}>
-            <cylinderGeometry args={[0.1, 0.1, 0.05, 32]} rotation={[Math.PI/2, 0, 0]} />
+          {/* Fix: Moved rotation from cylinderGeometry to mesh to correct TypeError */}
+          <mesh position={[0, 0, 0.32]} rotation={[Math.PI / 2, 0, 0]}>
+            <cylinderGeometry args={[0.1, 0.1, 0.05, 32]} />
             <meshBasicMaterial color="#22D3EE" />
           </mesh>
         </group>

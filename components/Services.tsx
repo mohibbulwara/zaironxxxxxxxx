@@ -22,7 +22,10 @@ const Services: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {SERVICES.map((service, index) => {
-            const IconComponent = (LucideIcons as any)[service.icon];
+            const iconName = service.icon;
+            // Robust check for the icon component in the module
+            const IconComponent = (LucideIcons as any)[iconName] || LucideIcons.Code;
+            
             return (
               <motion.div
                 key={service.title}
@@ -34,7 +37,7 @@ const Services: React.FC = () => {
                 className="glass p-8 rounded-3xl group hover:border-cyan-400/30 transition-all duration-300"
               >
                 <div className="w-14 h-14 bg-cyan-400/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-cyan-400 group-hover:text-black transition-all duration-300 text-cyan-400">
-                  {IconComponent && <IconComponent size={28} />}
+                  <IconComponent size={28} />
                 </div>
                 <h3 className="text-xl font-bold mb-4 text-white group-hover:text-cyan-400 transition-colors">
                   {service.title}

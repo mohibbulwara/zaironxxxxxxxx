@@ -8,7 +8,7 @@ import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
 import Header from './components/Header';
 import CursorTrail from './components/CursorTrail';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -45,61 +45,59 @@ const App: React.FC = () => {
 
   return (
     <div className="bg-black min-h-screen relative selection:bg-cyan-500/30">
-      <AnimatePresence>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <CursorTrail />
-          <Header />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <CursorTrail />
+        <Header />
+        
+        <main>
+          <Hero />
           
-          <main>
-            <Hero />
-            
-            <section id="about" className="py-40 bg-black relative">
-               <div className="container mx-auto px-6">
-                 <div className="max-w-5xl mx-auto text-center">
-                    <motion.p 
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      className="text-3xl lg:text-5xl text-white font-medium leading-[1.2] tracking-tight"
-                    >
-                      "Zaironx is an engineering studio focused on building high-performance, visually immersive digital experiences that scale."
-                    </motion.p>
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.2 }}
-                      className="mt-20 flex justify-center gap-12 flex-wrap"
-                    >
-                        <div className="text-left">
-                            <span className="text-cyan-400 text-5xl font-bold block mb-2">10+</span>
-                            <span className="text-[10px] uppercase font-bold tracking-widest text-white/30">Websites Built</span>
-                        </div>
-                        <div className="text-left">
-                            <span className="text-purple-400 text-5xl font-bold block mb-2">10+</span>
-                            <span className="text-[10px] uppercase font-bold tracking-widest text-white/30">Sectors Served</span>
-                        </div>
-                        <div className="text-left">
-                            <span className="text-white text-5xl font-bold block mb-2">Google</span>
-                            <span className="text-[10px] uppercase font-bold tracking-widest text-white/30">Certified</span>
-                        </div>
-                    </motion.div>
-                 </div>
+          <section id="about" className="py-40 bg-black relative">
+             <div className="container mx-auto px-6">
+               <div className="max-w-5xl mx-auto text-center">
+                  <motion.p 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-3xl lg:text-5xl text-white font-medium leading-[1.2] tracking-tight"
+                  >
+                    "Zaironx is an engineering studio focused on building high-performance, visually immersive digital experiences that scale."
+                  </motion.p>
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 }}
+                    className="mt-20 flex justify-center gap-12 flex-wrap"
+                  >
+                      <div className="text-left">
+                          <span className="text-cyan-400 text-5xl font-bold block mb-2">10+</span>
+                          <span className="text-[10px] uppercase font-bold tracking-widest text-white/30">Websites Built</span>
+                      </div>
+                      <div className="text-left">
+                          <span className="text-purple-400 text-5xl font-bold block mb-2">10+</span>
+                          <span className="text-[10px] uppercase font-bold tracking-widest text-white/30">Sectors Served</span>
+                      </div>
+                      <div className="text-left">
+                          <span className="text-white text-5xl font-bold block mb-2">Google</span>
+                          <span className="text-[10px] uppercase font-bold tracking-widest text-white/30">Certified</span>
+                      </div>
+                  </motion.div>
                </div>
-            </section>
+             </div>
+          </section>
 
-            <Services />
-            <Skills />
-            <Experience />
-            <Portfolio />
-            <Contact />
-          </main>
-        </motion.div>
-      </AnimatePresence>
+          <Services />
+          <Skills />
+          <Experience />
+          <Portfolio />
+          <Contact />
+        </main>
+      </motion.div>
     </div>
   );
 };

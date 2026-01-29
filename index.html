@@ -8,15 +8,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            cursor: none !important;
-        }
         body {
             font-family: 'Space Grotesk', sans-serif;
             background-color: #000000;
             color: #ffffff;
             margin: 0;
             overflow-x: hidden;
+        }
+        .custom-cursor-active * {
+            cursor: none !important;
         }
         ::-webkit-scrollbar {
             width: 8px;
@@ -56,19 +56,22 @@
 <script type="importmap">
 {
   "imports": {
-    "three": "https://esm.sh/three@^0.182.0",
-    "framer-motion": "https://esm.sh/framer-motion@^12.29.2",
-    "@react-three/fiber": "https://esm.sh/@react-three/fiber@^9.5.0",
-    "react/": "https://esm.sh/react@^19.2.4/",
     "react": "https://esm.sh/react@^19.2.4",
     "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
     "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
-    "@react-three/drei": "https://esm.sh/@react-three/drei@^10.7.7"
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "framer-motion": "https://esm.sh/framer-motion@^12.29.2",
+    "@react-three/fiber": "https://esm.sh/@react-three/fiber@^9.5.0",
+    "@react-three/drei": "https://esm.sh/@react-three/drei@^10.7.7",
+    "three": "https://esm.sh/three@^0.182.0"
   }
 }
 </script>
 </head>
-<body>
+<body class="custom-cursor-active">
     <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
 </body>
 </html>
