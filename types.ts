@@ -29,3 +29,17 @@ export interface Certificate {
   date: string;
   image: string;
 }
+
+export interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  metaDescription: string;
+  keywords: string[];
+  excerpt: string;
+  content: string;
+  date: string;
+  author: string;
+  image: string;
+  tags: string[];
+}

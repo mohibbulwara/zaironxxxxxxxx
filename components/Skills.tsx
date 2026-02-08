@@ -1,11 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SKILLS } from '../constants';
+import SystemStorage from '../lib/store';
 import { Skill } from '../types';
 
-// --- TELEMETRY COMPONENT ---
-// Generates flickering hex codes to give a "live system" feel
 const Telemetry = () => {
   const [val, setVal] = useState('0x0000');
   useEffect(() => {
@@ -18,7 +16,6 @@ const Telemetry = () => {
   return <span className="font-mono text-[8px] text-zinc-700 tracking-widest">{val}</span>;
 };
 
-// --- BIT-STREAM PROGRESS BAR ---
 const BitStream = ({ level, active }: { level: number, active: boolean }) => {
   const segments = 10;
   const filledSegments = Math.round(level / (100 / segments));
@@ -42,7 +39,6 @@ const BitStream = ({ level, active }: { level: number, active: boolean }) => {
   );
 };
 
-// Fix for line 143: Explicitly typed as React.FC to handle React-specific props like 'key' and using Skill interface for type safety.
 const SkillModule: React.FC<{ skill: Skill, index: number }> = ({ skill, index }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -56,12 +52,8 @@ const SkillModule: React.FC<{ skill: Skill, index: number }> = ({ skill, index }
       transition={{ delay: index * 0.05 }}
       className="relative p-6 border border-zinc-900 bg-black/40 group hover:border-zinc-700 transition-all duration-500 rounded-lg overflow-hidden"
     >
-      {/* Background Grid Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:10px_10px]" />
-      
-      {/* Corner Accent */}
       <div className={`absolute top-0 right-0 w-8 h-8 border-t border-r transition-colors duration-500 ${isHovered ? 'border-cyan-500/50' : 'border-zinc-800'}`} />
-
       <div className="relative z-10 flex flex-col gap-4">
         <div className="flex justify-between items-start">
           <div className="flex flex-col">
@@ -70,7 +62,6 @@ const SkillModule: React.FC<{ skill: Skill, index: number }> = ({ skill, index }
           </div>
           <Telemetry />
         </div>
-
         <div className="flex items-center justify-between mt-2">
            <BitStream level={skill.level} active={isHovered} />
            <span className={`font-mono text-[10px] font-bold ${isHovered ? 'text-cyan-400' : 'text-zinc-600'}`}>
@@ -78,8 +69,6 @@ const SkillModule: React.FC<{ skill: Skill, index: number }> = ({ skill, index }
            </span>
         </div>
       </div>
-
-      {/* Scanning Line Effect on Hover */}
       <AnimatePresence>
         {isHovered && (
           <motion.div 
@@ -96,16 +85,20 @@ const SkillModule: React.FC<{ skill: Skill, index: number }> = ({ skill, index }
 };
 
 const Skills: React.FC = () => {
+  const [skillCategories, setSkillCategories] = useState<any[]>(SystemStorage.getData().skills);
+
+  useEffect(() => {
+    const handleUpdate = () => setSkillCategories(SystemStorage.getData().skills);
+    window.addEventListener('system_data_updated', handleUpdate);
+    return () => window.removeEventListener('system_data_updated', handleUpdate);
+  }, []);
+
   return (
     <section id="skills" className="py-60 bg-black relative overflow-hidden">
-      {/* Global Section Background Text */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-[0.02]">
         <h2 className="text-[30vw] font-black tracking-tighter text-white">STACK</h2>
       </div>
-
       <div className="container mx-auto px-6 lg:px-20 relative z-10">
-        
-        {/* Header Block */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-32 items-end">
           <div className="lg:col-span-8">
             <div className="flex items-center gap-4 mb-6">
@@ -119,58 +112,29 @@ const Skills: React.FC = () => {
               <span className="text-cyan-500/80">Dependency</span> Stack
             </h2>
           </div>
-          
           <div className="lg:col-span-4 lg:text-right">
             <p className="text-zinc-500 text-sm max-w-sm ml-auto leading-relaxed">
               Our technical DNA is comprised of optimized libraries and high-performance frameworks integrated at a system level.
             </p>
           </div>
         </div>
-
-        {/* Categories Grid */}
         <div className="space-y-24">
-          {SKILLS.map((category) => (
+          {skillCategories.map((category) => (
             <div key={category.category}>
-              {/* Category Header */}
               <div className="flex items-center gap-6 mb-12">
                 <h3 className="text-[10px] font-bold uppercase tracking-[0.5em] text-zinc-400 whitespace-nowrap">
                   {category.category} Modules
                 </h3>
                 <div className="h-[1px] flex-grow bg-gradient-to-r from-zinc-900 via-zinc-800 to-transparent" />
               </div>
-
-              {/* Skills Module Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {category.items.map((skill, idx) => (
-                  <SkillModule key={skill.name} skill={skill} index={idx} />
+                {category.items.map((skill: Skill, idx: number) => (
+                  <SkillModule key={idx} skill={skill} index={idx} />
                 ))}
               </div>
             </div>
           ))}
         </div>
-
-        {/* Bottom Technical Board */}
-        <div className="mt-32 p-8 border border-zinc-900 rounded-2xl flex flex-wrap gap-8 items-center justify-between opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
-           <div className="flex flex-col gap-1">
-              <span className="text-[8px] font-mono text-zinc-700 uppercase tracking-widest">Compiler_Target</span>
-              <span className="text-xs font-bold text-zinc-400 uppercase tracking-tighter">ESNEXT_BETA</span>
-           </div>
-           <div className="flex flex-col gap-1">
-              <span className="text-[8px] font-mono text-zinc-700 uppercase tracking-widest">Optimization_Level</span>
-              <span className="text-xs font-bold text-zinc-400 uppercase tracking-tighter">O3_MAXIMUM</span>
-           </div>
-           <div className="flex flex-col gap-1">
-              <span className="text-[8px] font-mono text-zinc-700 uppercase tracking-widest">Environment</span>
-              <span className="text-xs font-bold text-zinc-400 uppercase tracking-tighter">PRODUCTION_READY</span>
-           </div>
-           <div className="flex items-center gap-4">
-              <div className="flex gap-1">
-                {[...Array(6)].map((_, i) => <div key={i} className="w-1 h-3 bg-zinc-800" />)}
-              </div>
-              <span className="text-[10px] font-mono text-zinc-600">v4.2.0_STABLE</span>
-           </div>
-        </div>
-
       </div>
     </section>
   );

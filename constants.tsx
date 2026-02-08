@@ -1,23 +1,12 @@
 
-import React from 'react';
-import { 
-  Code, 
-  Layers, 
-  Database, 
-  Cloud, 
-  Zap, 
-  Palette, 
-  Cpu 
-} from 'lucide-react';
-import { NavItem, Service, Project, Skill, Certificate } from './types';
+import { NavItem, Service, Project, Skill, BlogPost } from './types';
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Home', href: '#home' },
   { label: 'Services', href: '#services' },
   { label: 'Skills', href: '#skills' },
   { label: 'Work', href: '#work' },
-  { label: 'About', href: '#about' },
-  { label: 'Certificates', href: '#certificates' },
+  { label: 'Journal', href: '#journal' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -37,26 +26,11 @@ export const SERVICES: Service[] = [
     description: 'Engineered backend infrastructures designed for fault tolerance and synchronized data integrity.', 
     icon: 'Database' 
   },
-  { 
-    title: 'Cloud Orchestration', 
-    description: 'Automated CI/CD pipelines and serverless deployment strategies focused on zero-downtime performance.', 
-    icon: 'Cloud' 
-  },
-  { 
-    title: 'Protocol Engineering', 
-    description: 'Custom API development and integration layers ensuring seamless communication between distributed nodes.', 
-    icon: 'Zap' 
-  },
-  { 
-    title: 'Security Logic', 
-    description: 'Implementation of advanced encryption standards and rigorous security protocols to safeguard data assets.', 
-    icon: 'Code' 
-  },
 ];
 
 export const SKILLS: { category: string; items: Skill[] }[] = [
   {
-    category: 'Frontend',
+    category: 'Frontend Modules',
     items: [
       { name: 'HTML5/CSS3', level: 95 },
       { name: 'JavaScript (ES6+)', level: 90 },
@@ -65,7 +39,7 @@ export const SKILLS: { category: string; items: Skill[] }[] = [
     ]
   },
   {
-    category: 'Backend',
+    category: 'Backend Modules',
     items: [
       { name: 'Python', level: 80 },
       { name: 'Firebase', level: 88 },
@@ -87,7 +61,7 @@ export const PROJECTS: Project[] = [
     title: 'MSS Group BD',
     category: 'Industrial Enterprise',
     image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2670',
-    tags: ['Real-time Data', 'Resource Planning', 'Next.js'],
+    tags: ['Real-Time Data', 'Resource Planning', 'Next.js'],
     link: 'https://mssgroupbd.com'
   },
   {
@@ -95,35 +69,30 @@ export const PROJECTS: Project[] = [
     category: 'Studio Ecosystem',
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2672',
     tags: ['Web3', 'High-Speed API', 'Cloud'],
-    link: 'https://zaironx.top'
+    link: '#'
   },
   {
     title: 'DPI Robotics Club',
     category: 'Educational Robotics Hub',
-    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=2670',
+    image: 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&q=80&w=2669',
     tags: ['IoT Integration', 'Community', 'Tailwind'],
-    link: 'https://dpiroboticsclub.com'
-  },
+    link: '#'
+  }
 ];
 
-export const CERTIFICATES: Certificate[] = [
+export const BLOG_POSTS: BlogPost[] = [
   {
-    title: 'Google Cloud Professional',
-    issuer: 'Google',
-    date: '2024',
-    image: 'https://picsum.photos/seed/cert1/400/300'
-  },
-  {
-    title: 'Full Stack Development',
-    issuer: 'Coursera (Google Certified)',
-    date: '2023',
-    image: 'https://picsum.photos/seed/cert2/400/300'
-  },
-  {
-    title: 'Advanced React Architecture',
-    issuer: 'Frontend Masters',
-    date: '2024',
-    image: 'https://picsum.photos/seed/cert3/400/300'
+    id: '1',
+    title: 'The Future of Distributed Intelligence',
+    slug: 'future-of-distributed-intelligence',
+    metaDescription: 'An in-depth look at micro-frontend architectures and planetary-scale data handling.',
+    keywords: ['architecture', 'micro-frontends', 'cloud'],
+    excerpt: 'Exploring how micro-frontend architectures are evolving to handle planetary-scale data loads.',
+    content: 'Distributed intelligence is no longer a luxury but a requirement for modern enterprise systems. In this deep dive, we look at the evolution of serverless orchestration and the role of Edge Computing in reducing latency to sub-10ms ranges across global clusters.',
+    date: 'OCT 24, 2024',
+    author: 'Zaironx Admin',
+    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2670',
+    tags: ['Architecture', 'Cloud']
   }
 ];
 
