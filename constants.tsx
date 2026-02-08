@@ -23,34 +23,34 @@ export const NAV_ITEMS: NavItem[] = [
 
 export const SERVICES: Service[] = [
   { 
-    title: 'Web Development', 
-    description: 'Bespoke, scalable web solutions tailored for modern business needs.', 
-    icon: 'Code' 
+    title: 'Architecture Design', 
+    description: 'Bespoke high-level system blueprints architected for mission-critical scalability and redundancy.', 
+    icon: 'Cpu' 
   },
   { 
-    title: 'Frontend Engineering', 
-    description: 'Building immersive, high-performance interfaces with React and Next.js.', 
-    icon: 'Palette' 
-  },
-  { 
-    title: 'Backend Development', 
-    description: 'Robust server-side logic and API architectures designed for stability.', 
-    icon: 'Database' 
-  },
-  { 
-    title: 'Firebase & Cloud', 
-    description: 'Serverless infrastructures and cloud functions for maximum agility.', 
-    icon: 'Cloud' 
-  },
-  { 
-    title: 'Full-Stack Apps', 
-    description: 'End-to-end application development from database to final UI.', 
+    title: 'Interface Engineering', 
+    description: 'Development of low-latency, hyper-responsive frontends leveraging advanced React patterns and WebGL.', 
     icon: 'Layers' 
   },
   { 
-    title: 'UI/UX Engineering', 
-    description: 'Design-driven engineering ensuring a pixel-perfect user experience.', 
-    icon: 'Cpu' 
+    title: 'Distributed Systems', 
+    description: 'Engineered backend infrastructures designed for fault tolerance and synchronized data integrity.', 
+    icon: 'Database' 
+  },
+  { 
+    title: 'Cloud Orchestration', 
+    description: 'Automated CI/CD pipelines and serverless deployment strategies focused on zero-downtime performance.', 
+    icon: 'Cloud' 
+  },
+  { 
+    title: 'Protocol Engineering', 
+    description: 'Custom API development and integration layers ensuring seamless communication between distributed nodes.', 
+    icon: 'Zap' 
+  },
+  { 
+    title: 'Security Logic', 
+    description: 'Implementation of advanced encryption standards and rigorous security protocols to safeguard data assets.', 
+    icon: 'Code' 
   },
 ];
 
@@ -77,28 +77,32 @@ export const SKILLS: { category: string; items: Skill[] }[] = [
 
 export const PROJECTS: Project[] = [
   {
-    title: 'AI Data Nexus',
-    category: 'SaaS Platform',
-    image: 'https://picsum.photos/seed/z1/800/600',
-    tags: ['React', 'Firebase', 'Tailwind']
+    title: 'A\'Harian Portal',
+    category: 'Corporate Infrastructure',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2426',
+    tags: ['Branding', 'Strategic UI', 'Optimization'],
+    link: 'https://aharian.com'
   },
   {
-    title: 'Quantum Dashboard',
-    category: 'Enterprise UI',
-    image: 'https://picsum.photos/seed/z2/800/600',
-    tags: ['Next.js', 'Framer Motion', 'D3.js']
+    title: 'MSS Group BD',
+    category: 'Industrial Enterprise',
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2670',
+    tags: ['Real-time Data', 'Resource Planning', 'Next.js'],
+    link: 'https://mssgroupbd.com'
   },
   {
-    title: 'Stellar Agency Website',
-    category: 'Creative Portfolio',
-    image: 'https://picsum.photos/seed/z3/800/600',
-    tags: ['Three.js', 'GSAP', 'TypeScript']
+    title: 'Zaironx Mainframe',
+    category: 'Studio Ecosystem',
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2672',
+    tags: ['Web3', 'High-Speed API', 'Cloud'],
+    link: 'https://zaironx.top'
   },
   {
-    title: 'Nebula E-commerce',
-    category: 'E-commerce',
-    image: 'https://picsum.photos/seed/z4/800/600',
-    tags: ['Redux', 'Node.js', 'MySQL']
+    title: 'DPI Robotics Club',
+    category: 'Educational Robotics Hub',
+    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=2670',
+    tags: ['IoT Integration', 'Community', 'Tailwind'],
+    link: 'https://dpiroboticsclub.com'
   },
 ];
 

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
@@ -43,15 +42,16 @@ const Header: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Center Section: "zx" Logo */}
+      {/* Center Section: ZX Text Logo */}
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-auto"
+        whileHover={{ scale: 1.1 }}
+        className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-auto cursor-pointer"
       >
-        <span className="text-xl lg:text-2xl font-bold tracking-tighter select-none">
-          z<span className="text-cyan-400">x</span>
-        </span>
+        <div className="text-2xl font-black tracking-tighter">
+          Z<span className="text-cyan-400">X</span>
+        </div>
       </motion.div>
 
       {/* Right Section: Email, Nav & CTA */}
@@ -95,7 +95,7 @@ const Header: React.FC = () => {
         </motion.a>
       </div>
 
-      {/* Bottom Border/Separator - Very subtle line */}
+      {/* Bottom Border/Separator */}
       <div className="absolute bottom-0 left-4 right-4 h-[1px] bg-white/5" />
     </header>
   );

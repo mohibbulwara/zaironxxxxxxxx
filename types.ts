@@ -15,6 +15,7 @@ export interface Project {
   category: string;
   image: string;
   tags: string[];
+  link: string;
 }
 
 export interface Skill {

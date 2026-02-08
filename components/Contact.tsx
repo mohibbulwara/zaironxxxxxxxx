@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, MapPin, Mail, Github, Twitter, Linkedin, Facebook, Instagram, Youtube } from 'lucide-react';
@@ -80,7 +79,12 @@ const Contact: React.FC = () => {
         {/* Extended Footer Section */}
         <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-sm">
           <div className="space-y-6">
-             <span className="text-xl font-bold tracking-tighter text-white">z<span className="text-cyan-400">x</span></span>
+             <div className="flex items-center gap-3">
+               <div className="text-2xl font-black tracking-tighter">
+                  Z<span className="text-cyan-400">X</span>
+               </div>
+               <span className="text-xl font-bold tracking-tighter text-white">Zaironx</span>
+             </div>
              <p className="text-white/40 leading-relaxed">
                Engineering the future of immersive digital interfaces with precision and high-performance technology.
              </p>
